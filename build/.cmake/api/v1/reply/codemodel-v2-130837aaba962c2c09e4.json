@@ -8,7 +8,9 @@
 					"build" : ".",
 					"childIndexes" : 
 					[
-						1
+						1,
+						4,
+						5
 					],
 					"hasInstallRule" : true,
 					"minimumCMakeVersion" : 
@@ -19,8 +21,7 @@
 					"source" : ".",
 					"targetIndexes" : 
 					[
-						0,
-						5
+						0
 					]
 				},
 				{
@@ -73,6 +74,34 @@
 						3,
 						4
 					]
+				},
+				{
+					"build" : "utility",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.14"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 4,
+					"source" : "utility",
+					"targetIndexes" : 
+					[
+						5
+					]
+				},
+				{
+					"build" : "webserver",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.14"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 5,
+					"source" : "webserver",
+					"targetIndexes" : 
+					[
+						6
+					]
 				}
 			],
 			"name" : "Release",
@@ -81,7 +110,9 @@
 				{
 					"childIndexes" : 
 					[
-						1
+						1,
+						4,
+						5
 					],
 					"directoryIndexes" : 
 					[
@@ -90,8 +121,7 @@
 					"name" : "HighPerformanceServer",
 					"targetIndexes" : 
 					[
-						0,
-						5
+						0
 					]
 				},
 				{
@@ -135,6 +165,30 @@
 						3,
 						4
 					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						4
+					],
+					"name" : "utility",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						5
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						5
+					],
+					"name" : "webserver",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						6
+					]
 				}
 			],
 			"targets" : 
@@ -142,7 +196,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "HighPerformanceServer::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-HighPerformanceServer-Release-7e76e1dc926024b34a26.json",
+					"jsonFile" : "target-HighPerformanceServer-Release-8eab8541ad906d315a93.json",
 					"name" : "HighPerformanceServer",
 					"projectIndex" : 0
 				},
@@ -175,11 +229,18 @@
 					"projectIndex" : 3
 				},
 				{
-					"directoryIndex" : 0,
-					"id" : "webserver::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-webserver-Release-a2699a317fd11726a122.json",
+					"directoryIndex" : 4,
+					"id" : "utility::@23b027168f11ea0d609c",
+					"jsonFile" : "target-utility-Release-6eeb141e358660321b4b.json",
+					"name" : "utility",
+					"projectIndex" : 4
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "webserver::@bcd093f13c6838073cb0",
+					"jsonFile" : "target-webserver-Release-f74b646ccdcd69e0c929.json",
 					"name" : "webserver",
-					"projectIndex" : 0
+					"projectIndex" : 5
 				}
 			]
 		}

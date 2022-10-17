@@ -1,6 +1,9 @@
 #include "webserver.h"
+#include "utility.h"
+
 #include <cstdio>
 #include <cstring>
+#include <netinet/in.h>
 #include <strings.h>
 #include <sys/socket.h>
 #include <sys/stat.h>
@@ -9,19 +12,20 @@
 #include <arpa/inet.h>
 #include <sys/sendfile.h>
 #include <fcntl.h>
+#include <exception>
 
-Server::Server(int port, int backlog) :
-	_port(port), _backlog(backlog) {
+Server::Server(int port, int backlog, int ET_LT) :
+	_port(port), _backlog(backlog), _work_mode(ET_LT) {
 }
 
 Server::~Server() {
-	close(_sockfd);
+	close(_listenfd);
 }
 
 void Server::event_listen() {
 	/* Create sockket */
-	_sockfd = socket(PF_INET, SOCK_STREAM, 0);
-	if (_sockfd < 0) {
+	_listenfd = socket(PF_INET, SOCK_STREAM, 0);
+	if (_listenfd < 0) {
 		//LOG_ERROR("Create socket error!");
 		printf("Create socket error!\n");
 		throw std::exception();
@@ -34,47 +38,117 @@ void Server::event_listen() {
 	address.sin_addr.s_addr = htonl(INADDR_ANY);
 	address.sin_port		= htons(_port);
 	/* name */
-	int ret = bind(_sockfd, (struct sockaddr *)&address, sizeof(address));
+	int ret = bind(_listenfd, (struct sockaddr *)&address, sizeof(address));
 	if (-1 == ret) {
-		//LOG_ERROR("Naming the socket failed!");
-		printf("Naming the socket failed!\n");
+		//LOG_ERROR("Naming the socket failed!errno is %d", errno);
+		printf("Naming the socket failed!errno is %d \n", errno);
 		throw std::exception();
 	}
 	/* listen */
-	ret = listen(_sockfd, _backlog);
-	sleep(5);
+	ret = listen(_listenfd, _backlog);
 	if (-1 == ret) {
-		//LOG_ERROR("Listening the socket failed!");
+		//LOG_ERROR("Listening the socket failed! errno is %d", errno);
 		printf("Listening the socket failed!\n");
 		throw std::exception();
 	}
+
+	_epollfd = epoll_create(5);
+	if (-1 == _epollfd) {
+		//LOG_ERROR("epoll_create failed! errno is %d", errno);
+		printf("epoll_create failed! errno is %d \n", errno);
+		throw std::exception();
+	}
+
+	addfd_epollevent(_epollfd, _listenfd, _work_mode);
 }
 
 void Server::event_loop() {
-	struct sockaddr_in client;
-	socklen_t		   client_address_length = sizeof(client);
-	int				   connfd;
-	int				   filefd = open("/root/projects/HighPerformanceServer/root/filetosend.txt", O_RDONLY);
-	struct stat		   stat_buf;
+	int			filefd = open("/root/projects/HighPerformanceServer/root/filetosend.txt", O_RDONLY);
+	struct stat stat_buf;
+
 	fstat(filefd, &stat_buf);
+
 	while (1) {
 		printf("waiting connection \n");
-		connfd = accept(_sockfd, (sockaddr *)&client, &client_address_length);
-		printf("connecting ... \n");
-		if (connfd < 0) {
-			printf("connecting failed..., errno is : %d\n", errno);
-		} else {
-			char remote[INET_ADDRSTRLEN];
-			printf("connected with ip : %s and port %d \n", inet_ntop(AF_INET, &client.sin_addr, remote, INET_ADDRSTRLEN), ntohs(client.sin_port));
-			/* do something instead of sleep */
-			const char *common_data = "HELLO WORLD";
-			int			ret			= sendfile(connfd, filefd, nullptr, stat_buf.st_size);
 
-			if (ret < 0) {
-				//LOG_ERROR("sending data failed!");
-				printf("sending data failed");
+		int ret = epoll_wait(_epollfd, events, MAX_EVENT_NUMBER, -1);
+
+		if (ret < 0) {
+			//LOG_WARING("epoll failure and errno is %d", errno);
+			printf("epoll failure and errno is %d", errno);
+			throw std::exception();
+		}
+
+		deal_event(ret);
+	}
+
+	close(_listenfd);
+}
+
+void Server::deal_event(int number) {
+	for (int i = 0; i < number; ++i) {
+		int sockfd = events[i].data.fd;
+
+		/* event happen */
+		if (sockfd == _listenfd) {
+			struct sockaddr_in client_address;
+			socklen_t		   client_address_length = sizeof(client_address);
+
+			int connfd = accept(_listenfd, (struct sockaddr *)&client_address, &client_address_length);
+
+			if (-1 == connfd) {
+				//LOG_WARING("accepting a connection failed and errno is %d", errno);
+				printf("accepting a connection failed and errno is %d", errno);
+				close(connfd);
+				continue;
 			}
-			close(connfd);
+
+			addfd_epollevent(_epollfd, connfd, _work_mode);
+		}
+		/* receive data */
+		else if (events[i].events & EPOLLIN) {
+			//LOG_INFO("event trigger once");
+			printf("event trigger once \n");
+
+			if (_work_mode) {
+				for (;;) {
+					memset(receive_buffer, '\0', RECEIVE_BUFFER_SIZE);
+
+					int ret = recv(sockfd, receive_buffer, RECEIVE_BUFFER_SIZE - 1, 0);
+
+					if (ret < 0) {
+						printf("sending data failed");
+
+						if ((errno = EAGAIN) || (errno == EWOULDBLOCK)) {
+							//LOG_INFO("read later");
+							break;
+						}
+					} else if (0 == ret) {
+						//LOG_ERROR("sending data failed and errno is %d", errno);
+						close(sockfd);
+					} else {
+						//LOG_INFO("get %d bytes of content", ret);
+						printf("get %d bytes of content : %s \n", ret, receive_buffer);
+					}
+				}
+
+			} else {
+				memset(receive_buffer, '\0', RECEIVE_BUFFER_SIZE);
+
+				int ret = recv(sockfd, receive_buffer, RECEIVE_BUFFER_SIZE - 1, 0);
+
+				if (ret <= 0) {
+					close(sockfd);
+					continue;
+				}
+				//LOG_INFO("get %d bytes of content", ret);
+				printf("get %d bytes of content : %s \n", ret, receive_buffer);
+			}
+		}
+		/* something unexpected happen */
+		else {
+			//LOG_WARING("something unexpected happened");
+			printf("something unexpected happened\n");
 		}
 	}
 }

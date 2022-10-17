@@ -170,19 +170,6 @@ HighPerformanceServer/fast:
 .PHONY : HighPerformanceServer/fast
 
 #=============================================================================
-# Target rules for targets named webserver
-
-# Build rule for target.
-webserver: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 webserver
-.PHONY : webserver
-
-# fast build rule for target.
-webserver/fast:
-	$(MAKE) -f CMakeFiles/webserver.dir/build.make CMakeFiles/webserver.dir/build
-.PHONY : webserver/fast
-
-#=============================================================================
 # Target rules for targets named gmock_main
 
 # Build rule for target.
@@ -234,6 +221,32 @@ gtest/fast:
 	$(MAKE) -f _deps/googletest-build/googletest/CMakeFiles/gtest.dir/build.make _deps/googletest-build/googletest/CMakeFiles/gtest.dir/build
 .PHONY : gtest/fast
 
+#=============================================================================
+# Target rules for targets named utility
+
+# Build rule for target.
+utility: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 utility
+.PHONY : utility
+
+# fast build rule for target.
+utility/fast:
+	$(MAKE) -f utility/CMakeFiles/utility.dir/build.make utility/CMakeFiles/utility.dir/build
+.PHONY : utility/fast
+
+#=============================================================================
+# Target rules for targets named webserver
+
+# Build rule for target.
+webserver: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 webserver
+.PHONY : webserver
+
+# fast build rule for target.
+webserver/fast:
+	$(MAKE) -f webserver/CMakeFiles/webserver.dir/build.make webserver/CMakeFiles/webserver.dir/build
+.PHONY : webserver/fast
+
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -261,33 +274,6 @@ main.cpp.s:
 	$(MAKE) -f CMakeFiles/HighPerformanceServer.dir/build.make CMakeFiles/HighPerformanceServer.dir/main.cpp.s
 .PHONY : main.cpp.s
 
-webserver/webserver.o: webserver/webserver.cpp.o
-
-.PHONY : webserver/webserver.o
-
-# target to build an object file
-webserver/webserver.cpp.o:
-	$(MAKE) -f CMakeFiles/webserver.dir/build.make CMakeFiles/webserver.dir/webserver/webserver.cpp.o
-.PHONY : webserver/webserver.cpp.o
-
-webserver/webserver.i: webserver/webserver.cpp.i
-
-.PHONY : webserver/webserver.i
-
-# target to preprocess a source file
-webserver/webserver.cpp.i:
-	$(MAKE) -f CMakeFiles/webserver.dir/build.make CMakeFiles/webserver.dir/webserver/webserver.cpp.i
-.PHONY : webserver/webserver.cpp.i
-
-webserver/webserver.s: webserver/webserver.cpp.s
-
-.PHONY : webserver/webserver.s
-
-# target to generate assembly for a file
-webserver/webserver.cpp.s:
-	$(MAKE) -f CMakeFiles/webserver.dir/build.make CMakeFiles/webserver.dir/webserver/webserver.cpp.s
-.PHONY : webserver/webserver.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -301,17 +287,15 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... HighPerformanceServer"
-	@echo "... webserver"
 	@echo "... gmock_main"
 	@echo "... gmock"
 	@echo "... gtest_main"
 	@echo "... gtest"
+	@echo "... utility"
+	@echo "... webserver"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
-	@echo "... webserver/webserver.o"
-	@echo "... webserver/webserver.i"
-	@echo "... webserver/webserver.s"
 .PHONY : help
 
 

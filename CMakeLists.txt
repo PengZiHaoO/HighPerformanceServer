@@ -19,7 +19,9 @@ FetchContent_MakeAvailable(googletest)
 
 #enable_testing()
 #.....................................................
-add_library(webserver webserver/webserver.cpp)
+
+add_subdirectory(utility)
+add_subdirectory(webserver)
 
 add_executable(
     ${PROJECT_NAME}
@@ -31,13 +33,21 @@ add_executable(
 #target_link_libraries(${PROJECT_NAME} GTest::gtest_main queue)
 #target_include_directories(${PROJECT_NAME} PUBLIC queue)
 
-target_link_directories(${PROJECT_NAME} PRIVATE webserver)
-target_link_libraries(${PROJECT_NAME} webserver)
-target_include_directories(${PROJECT_NAME} PUBLIC webserver)
+
+target_link_directories(${PROJECT_NAME} 
+    PUBLIC FaceDetector
+    PUBLIC PersonRecognizer
+)
+
+target_include_directories(
+  ${PROJECT_NAME} 
+  PUBLIC webserver
+  PUBLIC utility
+)
 
 target_link_libraries(
   ${PROJECT_NAME}
-  webserver
+  PRIVATE webserver
  # GTest::gtest_main
 )
 

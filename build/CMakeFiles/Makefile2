@@ -54,20 +54,24 @@ CMAKE_BINARY_DIR = /root/projects/HighPerformanceServer/build
 
 # The main recursive "all" target.
 all: CMakeFiles/HighPerformanceServer.dir/all
-all: CMakeFiles/webserver.dir/all
 all: _deps/googletest-build/all
+all: utility/all
+all: webserver/all
 
 .PHONY : all
 
 # The main recursive "preinstall" target.
 preinstall: _deps/googletest-build/preinstall
+preinstall: utility/preinstall
+preinstall: webserver/preinstall
 
 .PHONY : preinstall
 
 # The main recursive "clean" target.
 clean: CMakeFiles/HighPerformanceServer.dir/clean
-clean: CMakeFiles/webserver.dir/clean
 clean: _deps/googletest-build/clean
+clean: utility/clean
+clean: webserver/clean
 
 .PHONY : clean
 
@@ -132,10 +136,47 @@ _deps/googletest-build/googletest/clean: _deps/googletest-build/googletest/CMake
 .PHONY : _deps/googletest-build/googletest/clean
 
 #=============================================================================
+# Directory level rules for directory utility
+
+# Recursive "all" directory target.
+utility/all: utility/CMakeFiles/utility.dir/all
+
+.PHONY : utility/all
+
+# Recursive "preinstall" directory target.
+utility/preinstall:
+
+.PHONY : utility/preinstall
+
+# Recursive "clean" directory target.
+utility/clean: utility/CMakeFiles/utility.dir/clean
+
+.PHONY : utility/clean
+
+#=============================================================================
+# Directory level rules for directory webserver
+
+# Recursive "all" directory target.
+webserver/all: webserver/CMakeFiles/webserver.dir/all
+
+.PHONY : webserver/all
+
+# Recursive "preinstall" directory target.
+webserver/preinstall:
+
+.PHONY : webserver/preinstall
+
+# Recursive "clean" directory target.
+webserver/clean: webserver/CMakeFiles/webserver.dir/clean
+
+.PHONY : webserver/clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/HighPerformanceServer.dir
 
 # All Build rule for target.
-CMakeFiles/HighPerformanceServer.dir/all: CMakeFiles/webserver.dir/all
+CMakeFiles/HighPerformanceServer.dir/all: utility/CMakeFiles/utility.dir/all
+CMakeFiles/HighPerformanceServer.dir/all: webserver/CMakeFiles/webserver.dir/all
 	$(MAKE) -f CMakeFiles/HighPerformanceServer.dir/build.make CMakeFiles/HighPerformanceServer.dir/depend
 	$(MAKE) -f CMakeFiles/HighPerformanceServer.dir/build.make CMakeFiles/HighPerformanceServer.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/projects/HighPerformanceServer/build/CMakeFiles --progress-num=1,2 "Built target HighPerformanceServer"
@@ -143,7 +184,7 @@ CMakeFiles/HighPerformanceServer.dir/all: CMakeFiles/webserver.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/HighPerformanceServer.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /root/projects/HighPerformanceServer/build/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/projects/HighPerformanceServer/build/CMakeFiles 6
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/HighPerformanceServer.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /root/projects/HighPerformanceServer/build/CMakeFiles 0
 .PHONY : CMakeFiles/HighPerformanceServer.dir/rule
@@ -157,33 +198,6 @@ HighPerformanceServer: CMakeFiles/HighPerformanceServer.dir/rule
 CMakeFiles/HighPerformanceServer.dir/clean:
 	$(MAKE) -f CMakeFiles/HighPerformanceServer.dir/build.make CMakeFiles/HighPerformanceServer.dir/clean
 .PHONY : CMakeFiles/HighPerformanceServer.dir/clean
-
-#=============================================================================
-# Target rules for target CMakeFiles/webserver.dir
-
-# All Build rule for target.
-CMakeFiles/webserver.dir/all:
-	$(MAKE) -f CMakeFiles/webserver.dir/build.make CMakeFiles/webserver.dir/depend
-	$(MAKE) -f CMakeFiles/webserver.dir/build.make CMakeFiles/webserver.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/projects/HighPerformanceServer/build/CMakeFiles --progress-num=11,12 "Built target webserver"
-.PHONY : CMakeFiles/webserver.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/webserver.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /root/projects/HighPerformanceServer/build/CMakeFiles 2
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/webserver.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /root/projects/HighPerformanceServer/build/CMakeFiles 0
-.PHONY : CMakeFiles/webserver.dir/rule
-
-# Convenience name for target.
-webserver: CMakeFiles/webserver.dir/rule
-
-.PHONY : webserver
-
-# clean rule for target.
-CMakeFiles/webserver.dir/clean:
-	$(MAKE) -f CMakeFiles/webserver.dir/build.make CMakeFiles/webserver.dir/clean
-.PHONY : CMakeFiles/webserver.dir/clean
 
 #=============================================================================
 # Target rules for target _deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir
@@ -293,6 +307,60 @@ gtest: _deps/googletest-build/googletest/CMakeFiles/gtest.dir/rule
 _deps/googletest-build/googletest/CMakeFiles/gtest.dir/clean:
 	$(MAKE) -f _deps/googletest-build/googletest/CMakeFiles/gtest.dir/build.make _deps/googletest-build/googletest/CMakeFiles/gtest.dir/clean
 .PHONY : _deps/googletest-build/googletest/CMakeFiles/gtest.dir/clean
+
+#=============================================================================
+# Target rules for target utility/CMakeFiles/utility.dir
+
+# All Build rule for target.
+utility/CMakeFiles/utility.dir/all:
+	$(MAKE) -f utility/CMakeFiles/utility.dir/build.make utility/CMakeFiles/utility.dir/depend
+	$(MAKE) -f utility/CMakeFiles/utility.dir/build.make utility/CMakeFiles/utility.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/projects/HighPerformanceServer/build/CMakeFiles --progress-num=11,12 "Built target utility"
+.PHONY : utility/CMakeFiles/utility.dir/all
+
+# Build rule for subdir invocation for target.
+utility/CMakeFiles/utility.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/projects/HighPerformanceServer/build/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 utility/CMakeFiles/utility.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/projects/HighPerformanceServer/build/CMakeFiles 0
+.PHONY : utility/CMakeFiles/utility.dir/rule
+
+# Convenience name for target.
+utility: utility/CMakeFiles/utility.dir/rule
+
+.PHONY : utility
+
+# clean rule for target.
+utility/CMakeFiles/utility.dir/clean:
+	$(MAKE) -f utility/CMakeFiles/utility.dir/build.make utility/CMakeFiles/utility.dir/clean
+.PHONY : utility/CMakeFiles/utility.dir/clean
+
+#=============================================================================
+# Target rules for target webserver/CMakeFiles/webserver.dir
+
+# All Build rule for target.
+webserver/CMakeFiles/webserver.dir/all: utility/CMakeFiles/utility.dir/all
+	$(MAKE) -f webserver/CMakeFiles/webserver.dir/build.make webserver/CMakeFiles/webserver.dir/depend
+	$(MAKE) -f webserver/CMakeFiles/webserver.dir/build.make webserver/CMakeFiles/webserver.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/projects/HighPerformanceServer/build/CMakeFiles --progress-num=13,14 "Built target webserver"
+.PHONY : webserver/CMakeFiles/webserver.dir/all
+
+# Build rule for subdir invocation for target.
+webserver/CMakeFiles/webserver.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/projects/HighPerformanceServer/build/CMakeFiles 4
+	$(MAKE) -f CMakeFiles/Makefile2 webserver/CMakeFiles/webserver.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/projects/HighPerformanceServer/build/CMakeFiles 0
+.PHONY : webserver/CMakeFiles/webserver.dir/rule
+
+# Convenience name for target.
+webserver: webserver/CMakeFiles/webserver.dir/rule
+
+.PHONY : webserver
+
+# clean rule for target.
+webserver/CMakeFiles/webserver.dir/clean:
+	$(MAKE) -f webserver/CMakeFiles/webserver.dir/build.make webserver/CMakeFiles/webserver.dir/clean
+.PHONY : webserver/CMakeFiles/webserver.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

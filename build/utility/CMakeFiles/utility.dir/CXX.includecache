@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/root/projects/HighPerformanceServer/utility/utility.cpp
+utime.h
+/root/projects/HighPerformanceServer/utility/utime.h
+fcntl.h
+-
+sys/epoll.h
+-
+cstdio
+-
+errno.h
+-
+

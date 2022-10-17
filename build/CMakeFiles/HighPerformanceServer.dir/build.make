@@ -79,8 +79,8 @@ HighPerformanceServer_EXTERNAL_OBJECTS =
 
 HighPerformanceServer: CMakeFiles/HighPerformanceServer.dir/main.cpp.o
 HighPerformanceServer: CMakeFiles/HighPerformanceServer.dir/build.make
-HighPerformanceServer: libwebserver.a
-HighPerformanceServer: libwebserver.a
+HighPerformanceServer: webserver/libwebserver.a
+HighPerformanceServer: utility/libutility.a
 HighPerformanceServer: CMakeFiles/HighPerformanceServer.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/root/projects/HighPerformanceServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable HighPerformanceServer"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/HighPerformanceServer.dir/link.txt --verbose=$(VERBOSE)

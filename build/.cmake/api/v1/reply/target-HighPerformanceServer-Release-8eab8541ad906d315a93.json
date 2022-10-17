@@ -27,25 +27,25 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 24,
+				"line" : 26,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 34,
+				"line" : 37,
 				"parent" : 0
 			},
 			{
 				"command" : 2,
 				"file" : 0,
-				"line" : 35,
+				"line" : 48,
 				"parent" : 0
 			},
 			{
 				"command" : 3,
 				"file" : 0,
-				"line" : 36,
+				"line" : 42,
 				"parent" : 0
 			}
 		]
@@ -67,6 +67,10 @@
 				{
 					"backtrace" : 4,
 					"path" : "/root/projects/HighPerformanceServer/webserver"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "/root/projects/HighPerformanceServer/utility"
 				}
 			],
 			"language" : "CXX",
@@ -80,7 +84,11 @@
 	[
 		{
 			"backtrace" : 3,
-			"id" : "webserver::@6890427a1f51a3e7e1df"
+			"id" : "utility::@23b027168f11ea0d609c"
+		},
+		{
+			"backtrace" : 3,
+			"id" : "webserver::@bcd093f13c6838073cb0"
 		}
 	],
 	"id" : "HighPerformanceServer::@6890427a1f51a3e7e1df",
@@ -98,21 +106,25 @@
 			},
 			{
 				"backtrace" : 2,
-				"fragment" : "-L/root/projects/HighPerformanceServer/webserver",
+				"fragment" : "-L/root/projects/HighPerformanceServer/FaceDetector",
 				"role" : "libraryPath"
 			},
 			{
-				"fragment" : "-Wl,-rpath,/root/projects/HighPerformanceServer/webserver",
+				"backtrace" : 2,
+				"fragment" : "-L/root/projects/HighPerformanceServer/PersonRecognizer",
+				"role" : "libraryPath"
+			},
+			{
+				"fragment" : "-Wl,-rpath,/root/projects/HighPerformanceServer/FaceDetector:/root/projects/HighPerformanceServer/PersonRecognizer",
 				"role" : "libraries"
 			},
 			{
 				"backtrace" : 3,
-				"fragment" : "libwebserver.a",
+				"fragment" : "webserver/libwebserver.a",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 3,
-				"fragment" : "libwebserver.a",
+				"fragment" : "utility/libutility.a",
 				"role" : "libraries"
 			}
 		],

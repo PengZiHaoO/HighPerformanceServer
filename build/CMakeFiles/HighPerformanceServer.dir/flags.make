@@ -6,5 +6,5 @@ CXX_FLAGS = -O3 -DNDEBUG   -std=gnu++14
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/root/projects/HighPerformanceServer/webserver 
+CXX_INCLUDES = -I/root/projects/HighPerformanceServer/webserver -I/root/projects/HighPerformanceServer/utility 
 

@@ -353,6 +353,18 @@ gtest_hide_internal_symbols:BOOL=OFF
 //Dependencies for the target
 gtest_main_LIB_DEPENDS:STATIC=general;gtest;
 
+//Value Computed by CMake
+utility_BINARY_DIR:STATIC=/root/projects/HighPerformanceServer/build/utility
+
+//Value Computed by CMake
+utility_SOURCE_DIR:STATIC=/root/projects/HighPerformanceServer/utility
+
+//Value Computed by CMake
+webserver_BINARY_DIR:STATIC=/root/projects/HighPerformanceServer/build/webserver
+
+//Value Computed by CMake
+webserver_SOURCE_DIR:STATIC=/root/projects/HighPerformanceServer/webserver
+
 
 ########################
 # INTERNAL cache entries
@@ -498,7 +510,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=4
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=6
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

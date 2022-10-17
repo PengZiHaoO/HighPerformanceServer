@@ -281,6 +281,12 @@
 		{
 			"isGenerated" : true,
 			"path" : "build/_deps/googletest-src/googletest/cmake/gtest_main.pc.in"
+		},
+		{
+			"path" : "utility/CMakeLists.txt"
+		},
+		{
+			"path" : "webserver/CMakeLists.txt"
 		}
 	],
 	"kind" : "cmakeFiles",

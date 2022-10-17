@@ -7,13 +7,7 @@
 #IncludeRegexTransform: 
 
 ../webserver/webserver.h
-sys/socket.h
--
-cassert
--
-netinet/in.h
--
-exception
+sys/epoll.h
 -
 
 /root/projects/HighPerformanceServer/main.cpp
