@@ -1,0 +1,7 @@
+HighPerformanceServer_NOT_BUILT 0 0
+AddTest.BasicAssertions 2 0
+AddTest.HandleTwoPositive 2 0.00225756
+AddTest.HandleTwoNegative 2 0.0024429
+MinTest.NumWithAlpha 0 0
+---
+MinTest.NumWithAlpha

@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../webserver/webserver.h
+sys/socket.h
+-
+cassert
+-
+netinet/in.h
+-
+exception
+-
+
+/root/projects/HighPerformanceServer/main.cpp
+webserver.h
+-
+

@@ -1,0 +1,1 @@
+/usr/bin/g++  -O3 -DNDEBUG   CMakeFiles/HighPerformanceServer.dir/main.cpp.o  -o HighPerformanceServer   -L/root/projects/HighPerformanceServer/webserver  -Wl,-rpath,/root/projects/HighPerformanceServer/webserver libwebserver.a libwebserver.a 
