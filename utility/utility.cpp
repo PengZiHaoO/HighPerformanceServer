@@ -17,7 +17,7 @@ int set_nonblocking(int fd) {
 	return old_option;
 }
 
-void addfd_epollevent(int epollfd, int fd, bool enable_ET /* = true */) {
+void addfd_epollevent(int epollfd, int fd, bool enable_ET /* = true */, bool enable_oneshot /* = true */) {
 	epoll_event event;
 
 	event.data.fd = fd;
@@ -27,8 +27,14 @@ void addfd_epollevent(int epollfd, int fd, bool enable_ET /* = true */) {
 		event.events = event.events | EPOLLET;
 	}
 
+	if (enable_oneshot) {
+		event.events |= EPOLLONESHOT;
+	}
+
 	if (-1 == epoll_ctl(epollfd, EPOLL_CTL_ADD, fd, &event)) {
 		//LOG_WARING("epoll_ctl invoction failedand errno is %d ", errno);
 		printf("epoll_ctl invoction failed and errno is %d \n", errno);
 	}
+
+	set_nonblocking(fd);
 }

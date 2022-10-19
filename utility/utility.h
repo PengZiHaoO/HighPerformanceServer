@@ -5,6 +5,6 @@
 int set_nonblocking(int fd);
 
 /* add fd to epoll event */
-void addfd_epollevent(int epolled, int fd, bool enable_ET = true);
+void addfd_epollevent(int epolled, int fd, bool enable_ET = true, bool enable_oneshot = true);
 
 #endif
