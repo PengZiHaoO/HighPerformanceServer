@@ -1,1 +1,0 @@
-/usr/bin/g++  -O3 -DNDEBUG   CMakeFiles/HighPerformanceServer.dir/main.cpp.o  -o HighPerformanceServer   -L/root/projects/HighPerformanceServer/FaceDetector  -L/root/projects/HighPerformanceServer/PersonRecognizer  -Wl,-rpath,/root/projects/HighPerformanceServer/FaceDetector:/root/projects/HighPerformanceServer/PersonRecognizer webserver/libwebserver.a utility/libutility.a 

@@ -1,5 +1,0 @@
-if(EXISTS "/root/projects/HighPerformanceServer/build/HighPerformanceServer[1]_tests.cmake")
-  include("/root/projects/HighPerformanceServer/build/HighPerformanceServer[1]_tests.cmake")
-else()
-  add_test(HighPerformanceServer_NOT_BUILT HighPerformanceServer_NOT_BUILT)
-endif()

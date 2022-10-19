@@ -1,7 +1,0 @@
-add_test( AddTest.HandleTwoPositive /root/projects/HighPerformanceServer/build/HighPerformanceServer [==[--gtest_filter=AddTest.HandleTwoPositive]==] --gtest_also_run_disabled_tests)
-set_tests_properties( AddTest.HandleTwoPositive PROPERTIES WORKING_DIRECTORY /root/projects/HighPerformanceServer/build)
-add_test( AddTest.HandleTwoNegative /root/projects/HighPerformanceServer/build/HighPerformanceServer [==[--gtest_filter=AddTest.HandleTwoNegative]==] --gtest_also_run_disabled_tests)
-set_tests_properties( AddTest.HandleTwoNegative PROPERTIES WORKING_DIRECTORY /root/projects/HighPerformanceServer/build)
-add_test( MinTest.NumWithAlpha /root/projects/HighPerformanceServer/build/HighPerformanceServer [==[--gtest_filter=MinTest.NumWithAlpha]==] --gtest_also_run_disabled_tests)
-set_tests_properties( MinTest.NumWithAlpha PROPERTIES WORKING_DIRECTORY /root/projects/HighPerformanceServer/build)
-set( HighPerformanceServer_TESTS AddTest.HandleTwoPositive AddTest.HandleTwoNegative MinTest.NumWithAlpha)
