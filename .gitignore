@@ -52,3 +52,5 @@ _deps
 
 build
 [Bb][Uu][Ii][Ll][Dd]
+
+test.cpp
