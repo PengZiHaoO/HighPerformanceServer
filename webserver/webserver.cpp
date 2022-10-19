@@ -55,7 +55,7 @@ void Server::event_listen() {
 	_epollfd = epoll_create(5);
 	if (-1 == _epollfd) {
 		//LOG_ERROR("epoll_create failed! errno is %d", errno);
-		printf("epoll_create failed! errno is %d \n", errno);
+		printf("epoll_create failed! errno is %d\n", errno);
 		throw std::exception();
 	}
 
@@ -68,8 +68,8 @@ void Server::event_loop() {
 
 	fstat(filefd, &stat_buf);
 
-	while (1) {
-		printf("waiting connection \n");
+	for (;;) {
+		printf("waiting connection\n");
 
 		int ret = epoll_wait(_epollfd, events, MAX_EVENT_NUMBER, -1);
 
@@ -83,6 +83,7 @@ void Server::event_loop() {
 	}
 
 	close(_listenfd);
+	close(filefd);
 }
 
 void Server::deal_event(int number) {
@@ -99,7 +100,6 @@ void Server::deal_event(int number) {
 			if (-1 == connfd) {
 				//LOG_WARING("accepting a connection failed and errno is %d", errno);
 				printf("accepting a connection failed and errno is %d", errno);
-				close(connfd);
 				continue;
 			}
 
@@ -117,18 +117,18 @@ void Server::deal_event(int number) {
 					int ret = recv(sockfd, receive_buffer, RECEIVE_BUFFER_SIZE - 1, 0);
 
 					if (ret < 0) {
-						printf("sending data failed");
+						printf("receiving data failed\n");
 
 						if ((errno = EAGAIN) || (errno == EWOULDBLOCK)) {
 							//LOG_INFO("read later");
 							break;
 						}
 					} else if (0 == ret) {
-						//LOG_ERROR("sending data failed and errno is %d", errno);
 						close(sockfd);
 					} else {
 						//LOG_INFO("get %d bytes of content", ret);
-						printf("get %d bytes of content : %s \n", ret, receive_buffer);
+						printf("get %d bytes of content : %s", ret, receive_buffer);
+						send(sockfd, common_data.c_str(), common_data.size(), 0);
 					}
 				}
 
@@ -137,12 +137,14 @@ void Server::deal_event(int number) {
 
 				int ret = recv(sockfd, receive_buffer, RECEIVE_BUFFER_SIZE - 1, 0);
 
-				if (ret <= 0) {
+				if (ret == -1) {
+					//LOG_FATL("receiving failing");
+				} else if (ret == 0) {
 					close(sockfd);
 					continue;
 				}
 				//LOG_INFO("get %d bytes of content", ret);
-				printf("get %d bytes of content : %s \n", ret, receive_buffer);
+				printf("get %d bytes of content : %s\n", ret, receive_buffer);
 			}
 		}
 		/* something unexpected happen */

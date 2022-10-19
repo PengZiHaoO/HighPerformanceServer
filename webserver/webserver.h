@@ -2,6 +2,7 @@
 #define __WEBSERVER_H__
 
 #include <sys/epoll.h>
+#include <string>
 
 #define ET 1
 #define LT 0
@@ -9,7 +10,9 @@
 class Server {
 private:
 	static const int MAX_EVENT_NUMBER	 = 1024;
-	static const int RECEIVE_BUFFER_SIZE = 10;
+	static const int RECEIVE_BUFFER_SIZE = 24;
+
+	std::string common_data = "HELLO WORLD\n";
 
 public:
 	/* init with listen port, backlog and work mode ET or LT */

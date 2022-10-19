@@ -9,6 +9,8 @@
 ../webserver/webserver.h
 sys/epoll.h
 -
+string
+-
 
 /root/projects/HighPerformanceServer/main.cpp
 webserver.h
