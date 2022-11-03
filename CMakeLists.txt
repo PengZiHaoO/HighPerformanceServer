@@ -21,7 +21,8 @@ FetchContent_MakeAvailable(googletest)
 #.....................................................
 
 add_subdirectory(utility)
-add_subdirectory(webserver)
+add_subdirectory(WebServer)
+add_subdirectory(HTTPConnection)
 
 add_executable(
     ${PROJECT_NAME}
@@ -34,20 +35,17 @@ add_executable(
 #target_include_directories(${PROJECT_NAME} PUBLIC queue)
 
 
-target_link_directories(${PROJECT_NAME} 
-    PUBLIC FaceDetector
-    PUBLIC PersonRecognizer
-)
-
 target_include_directories(
   ${PROJECT_NAME} 
-  PUBLIC webserver
+  PUBLIC WebServer
   PUBLIC utility
+  PUBLIC HTTPConnection
 )
 
 target_link_libraries(
   ${PROJECT_NAME}
-  PRIVATE webserver
+  PRIVATE WebServer
+  PRIVATE HTTPConnection
  # GTest::gtest_main
 )
 

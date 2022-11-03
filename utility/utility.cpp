@@ -3,6 +3,7 @@
 #include <sys/epoll.h>
 #include <cstdio>
 #include <errno.h>
+#include <unistd.h>
 
 int set_nonblocking(int fd) {
 	int old_option = fcntl(fd, F_GETFL);
@@ -37,4 +38,18 @@ void addfd_epollevent(int epollfd, int fd, bool enable_ET /* = true */, bool ena
 	}
 
 	set_nonblocking(fd);
+}
+
+void removfd(int epollfd, int fd) {
+	epoll_ctl(epollfd, EPOLL_CTL_DEL, fd, 0);
+
+	close(fd);
+}
+
+void modfd(int epollfd, int fd, int ev) {
+	epoll_event event;
+	event.data.fd = fd;
+	event.events  = ev | EPOLLET | EPOLLONESHOT | EPOLLRDHUP;
+
+	epoll_ctl(epollfd, EPOLL_CTL_MOD, fd, &event);
 }

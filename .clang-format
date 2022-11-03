@@ -131,7 +131,7 @@ DerivePointerAlignment: false
 FixNamespaceComments: true
 
 # 缩进case标签
-IndentCaseLabels: false
+IndentCaseLabels: true
 
 IndentPPDirectives: None
 
