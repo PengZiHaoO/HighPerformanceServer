@@ -141,7 +141,7 @@ void Server::read_data(int sockfd) {
 	if (_users[sockfd].read() == true) {
 		printf("receive data from client\n");
 		//LOG_INFO("receive data from client : %s", inet_ntoa(users[sockfd].get_address()->sin_addr));
-		_pool.enqueue([&] { _users[sockfd].process(); });
+		_users[sockfd].process();
 	} else {
 		printf("read data failed \n");
 	}
