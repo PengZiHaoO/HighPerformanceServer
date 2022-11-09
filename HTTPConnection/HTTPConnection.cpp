@@ -10,6 +10,7 @@
 #include <unistd.h>
 
 #include "utility.h"
+#include "DBConnectionPool.h"
 
 /*HTTP response state info*/
 const char *ok_200_title	= "OK";
@@ -44,7 +45,6 @@ void HTTPConnection::process() {
 		printf("close connection \n");
 		close_connection();
 	}
-	printf("sockfd epollout \n");
 	modfd(_epollfd, _sockfd, EPOLLOUT);
 }
 
@@ -85,7 +85,6 @@ bool HTTPConnection::write() {
 	int bytes_to_send	= _write_index;
 	int bytes_write		= 0;
 	while (true) {
-		printf("write -------------------\n");
 		bytes_write = writev(_sockfd, _io_vector, _iovec_count);
 
 		if (bytes_write == -1) {
@@ -389,7 +388,35 @@ HTTPConnection::HTTP_CODE HTTPConnection::do_request() {
 	//TODO:add db
 	bool log_in	 = (strncasecmp(option, "log", 5) == 0);
 	bool sign_up = (strncasecmp(option, "sign", 6) == 0);
+
 	if (_cgi == true && (log_in || sign_up)) {
+		//TODO: _string中提取出username & passwd and return the page
+		char *send_resourse = new char[200];
+
+		strcpy(send_resourse, "/");
+		strcat(_request_file_path, _url + 2);
+		strncpy(_request_file_path + length, send_resourse, MAX_FILE_NAME_LENTH - length - 1);
+
+		delete[] send_resourse;
+
+		std::string name;
+		std::string passwd;
+		for (int i = 0; _string[i] != '&'; ++i) {
+			name += _string[i];
+		}
+		for (int i = name.size(); _string[i] != '\0'; ++i) {
+			passwd += _string[i];
+		}
+
+		/*登录*/
+		if (log_in) {
+			//TODO:判断username & passwd是否正确并返回相应页面
+
+		}
+		/*注册*/
+		else if (sign_up) {
+			//TODO:判断username是否重复并并插入数据库
+		}
 	}
 
 	if (strncasecmp(option, "picture", 8) == 0) {
